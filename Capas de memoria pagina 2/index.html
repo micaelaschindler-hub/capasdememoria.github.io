@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Capas de Memoria — Experiencia interactiva sobre las memorias visibles e invisibles del Paseo del Buen Pastor, Córdoba." />
+  <title>Capas de Memoria — Paseo del Buen Pastor</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  
+
+</head>
+
+<body class="page-index">
+
+    <!-- ══════════ DESKTOP TOP NAV ══════════ -->
+  <header class="topbar" role="banner">
+    <a href="index.html" class="brand" aria-label="Capas de Memoria — inicio">
+      <span class="brand__name">Capas de Memoria</span>
+      <span class="brand__sub">Paseo del Buen Pastor · Córdoba</span>
+    </a>
+    <nav class="topbar-nav" aria-label="Navegación principal desktop">
+      <a href="mapa.html"          class="topbar-link">Mapa</a>
+      <a href="timeline.html"      class="topbar-link">Cronología</a>
+      <a href="archivo.html"       class="topbar-link">Archivo</a>
+      <a href="participacion.html" class="topbar-link">Participar</a>
+      <a href="creditos.html"      class="topbar-link">Créditos</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════
+         SECCIÓN 1 — INTRO CON CAPAS APILADAS
+         Estructura no convencional: imagen flotante
+         + cards en capas físicas + título grande.
+         En mobile: scroll-snap full-screen.
+         En desktop: sticky scrollytelling.
+    ══════════════════════════════════════════ -->
+    <section
+      class="scene-intro"
+      aria-label="Introducción — Capas de memoria del Paseo del Buen Pastor"
+      data-scroll-scene="intro"
+    >
+      <!-- Contenedor sticky (desktop) / estático (mobile) -->
+      <div class="scene-intro__sticky" id="sceneSticky">
+
+        <!-- Imagen hero: el Paseo hoy -->
+        <div class="hero-card" role="img" aria-label="[src: imagen antigua 1.jpg] Fotografía actual del Paseo del Buen Pastor: vista del paseo peatonal con el edificio histórico al fondo">
+          <div class="img-placeholder img-placeholder--hero">
+            <svg viewBox="0 0 48 36" fill="none" aria-hidden="true">
+              <rect x="1" y="1" width="46" height="34" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="16" cy="13" r="4" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M1 26l11-9 8 8 8-6 12 9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <p>Imagen actual del<br><strong>Paseo del Buen Pastor</strong></p>
+            <span class="img-placeholder__note">
+              [Insertar fotografía propia del Paseo — formato horizontal 16:9 — mínimo 1200px]
+            </span>
+          </div>
+        </div>
+
+        <!-- ── Capas apiladas ── -->
+        <!-- Representación física de las 4 capas temporales como hojas apiladas.
+             JS en interactions.js las anima al scrollear. -->
+        <div class="layer-stack" id="layerStack" role="list" aria-label="Capas históricas del lugar">
+
+          <!-- Capa del fondo: Siglo XIX — Orígenes -->
+          <article class="layer-card layer-card--3" data-layer="1" role="listitem" aria-label="Capa Siglo XIX: Orígenes del complejo carcelario">
+            <div class="layer-card__bg layer-card__bg--capa1" aria-hidden="true"></div>
+            <div class="layer-card__content">
+              <span class="layer-card__label">Siglo XIX</span>
+              <span class="layer-card__sub">Orígenes</span>
+            </div>
+            <div class="layer-card__dot" aria-hidden="true"></div>
+          </article>
+
+          <!-- Capa media: Siglo XX — Transformaciones -->
+          <article class="layer-card layer-card--2" data-layer="2" role="listitem" aria-label="Capa Siglo XX: Transformaciones y represión política">
+            <div class="layer-card__bg layer-card__bg--capa2" aria-hidden="true"></div>
+            <div class="layer-card__content">
+              <span class="layer-card__label">Siglo XX</span>
+              <span class="layer-card__sub">Transformaciones</span>
+            </div>
+            <div class="layer-card__dot" aria-hidden="true"></div>
+          </article>
+
+          <!-- Capa frontal: Presente -->
+          <article class="layer-card layer-card--1" data-layer="4" role="listitem" aria-label="Capa actual: El Paseo del Buen Pastor en el presente">
+            <div class="layer-card__bg layer-card__bg--capa4" aria-hidden="true"></div>
+            <div class="layer-card__content">
+              <div class="layer-card__dot layer-card__dot--active" aria-hidden="true"></div>
+              <span class="layer-card__label">Capa actual</span>
+              <span class="layer-card__sub">Presente</span>
+            </div>
+          </article>
+
+        </div>
+        
+        <!-- Dots del carrusel — controlan qué capa está al frente -->
+<div class="layer-carousel-dots" role="tablist" aria-label="Seleccionar capa para ver al frente">
+  <button class="carousel-dot" data-card-index="0" role="tab" aria-selected="false" aria-label="Mostrar Siglo XIX al frente"></button>
+  <button class="carousel-dot" data-card-index="1" role="tab" aria-selected="false" aria-label="Mostrar Siglo XX al frente"></button>
+  <button class="carousel-dot is-active" data-card-index="2" role="tab" aria-selected="true" aria-label="Mostrar Capa actual al frente"></button>
+</div>
+
+        <!-- Separador visual -->
+        <div class="title-divider" aria-hidden="true">
+          <span class="divider-line"></span>
+          <span class="divider-dot">⊙</span>
+          <span class="divider-line"></span>
+        </div>
+
+        <!-- Título principal — tipografía de impacto -->
+        <div class="main-title" id="mainTitle">
+          <h1 class="main-title__text" aria-label="Capas de Memoria">
+            CAPAS DE<br aria-hidden="true">MEMORIA
+          </h1>
+        </div>
+
+      </div><!-- /scene-intro__sticky -->
+
+      <!-- Espacio de scroll para el scrollytelling en desktop -->
+      <div class="scene-scroll-space" aria-hidden="true"></div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECCIÓN 2 — CTA + INICIO DE RECORRIDO
+    ══════════════════════════════════════════ -->
+    <section
+      class="scene-cta"
+      id="scene-cta"
+      aria-label="Comenzar el recorrido"
+    >
+      <div class="scene-cta__inner">
+
+        <!-- Separador repetido visible en mobile bajo el título -->
+        <div class="title-divider title-divider--light" aria-hidden="true">
+          <span class="divider-line"></span>
+          <span class="divider-dot">⊙</span>
+          <span class="divider-line"></span>
+        </div>
+
+        <!-- CTA principal -->
+        <a href="mapa.html" class="btn-cta-primary" aria-label="Comenzar el recorrido interactivo por el Paseo del Buen Pastor">
+          Comenzar recorrido
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+
+        <!-- Descripción de la experiencia -->
+        <p class="cta-context">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M3 7l9-4 9 4v6l-9 5-9-5V7z"/>
+            <path d="M3 7l9 4 9-4"/>
+          </svg>
+          Experiencia interactiva sobre las transformaciones del espacio
+        </p>
+
+        <!-- Flecha de scroll (visual) -->
+        <div class="scroll-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECCIÓN 3 — CONTEXTO NARRATIVO
+         "Un lugar. Múltiples memorias."
+    ══════════════════════════════════════════ -->
+    <section class="scene-context" aria-labelledby="context-title">
+      <div class="scene-context__inner">
+
+        <div class="context-text">
+          <h2 class="context-title" id="context-title">Un lugar.<br>Múltiples memorias.</h2>
+          <p class="context-body">
+            El Paseo del Buen Pastor, en el corazón de Córdoba, es hoy un espacio
+            de cultura y esparcimiento. Pero sus muros guardan capas de historia
+            que no siempre son visibles a simple vista.
+          </p>
+          <p class="context-body">
+            Desde su fundación como complejo penitenciario en 1868, pasando por
+            su uso como centro de detención política durante la última dictadura
+            cívico-militar, hasta su transformación en el espacio público que
+            habitamos hoy: este lugar acumula memorias superpuestas.
+          </p>
+          <p class="context-body">
+            Esta experiencia te invita a recorrer esas capas: a escuchar las voces
+            que quedaron impresas en sus paredes, a contrastar el pasado con el
+            presente, y a sumar tu propia memoria al archivo colectivo.
+          </p>
+        </div>
+
+        <!-- Vista previa de las 4 capas -->
+        <div class="context-layers" aria-label="Las cuatro capas históricas del lugar">
+          <div class="capa-pill capa-pill--1">
+            <span class="capa-pill__num">I</span>
+            <div class="capa-pill__info">
+              <strong>Orígenes</strong>
+              <span>1868 — Complejo penitenciario</span>
+            </div>
+          </div>
+          <div class="capa-pill capa-pill--2">
+            <span class="capa-pill__num">II</span>
+            <div class="capa-pill__info">
+              <strong>Resistencia</strong>
+              <span>1969-1983 — Presas políticas</span>
+            </div>
+          </div>
+          <div class="capa-pill capa-pill--3">
+            <span class="capa-pill__num">III</span>
+            <div class="capa-pill__info">
+              <strong>Reconversión</strong>
+              <span>1983-2001 — El debate</span>
+            </div>
+          </div>
+          <div class="capa-pill capa-pill--4">
+            <span class="capa-pill__num">IV</span>
+            <div class="capa-pill__info">
+              <strong>El Paseo</strong>
+              <span>2001–Hoy — Memoria activa</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECCIÓN 4 — PREVIEW DE SECCIONES
+    ══════════════════════════════════════════ -->
+    <section class="scene-preview" aria-labelledby="preview-title">
+      <div class="scene-preview__inner">
+
+        <h2 class="preview-title" id="preview-title">Explorá la experiencia</h2>
+
+        <div class="preview-grid">
+
+          <a href="mapa.html" class="preview-card preview-card--mapa">
+            <div class="preview-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 7l6-2 6 2 6-2v13l-6 2-6-2-6 2V7z"/>
+                <line x1="9" y1="5" x2="9" y2="18"/>
+                <line x1="15" y1="7" x2="15" y2="20"/>
+              </svg>
+            </div>
+            <h3>Mapa de memoria</h3>
+            <p>Explorá los 14 nodos del Paseo y descubrí las historias de cada espacio.</p>
+            <span class="preview-card__link">Ir al mapa →</span>
+          </a>
+
+          <a href="timeline.html" class="preview-card preview-card--timeline">
+            <div class="preview-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h3>Cronología</h3>
+            <p>Recorrí los momentos clave desde 1868 hasta el presente.</p>
+            <span class="preview-card__link">Ver cronología →</span>
+          </a>
+
+          <a href="archivo.html" class="preview-card preview-card--archivo">
+            <div class="preview-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <h3>Archivo documental</h3>
+            <p>Fotografías históricas, planos y documentos del complejo.</p>
+            <span class="preview-card__link">Explorar archivo →</span>
+          </a>
+
+          <a href="participacion.html" class="preview-card preview-card--participar">
+            <div class="preview-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3>Tu capa del presente</h3>
+            <p>Sumá tu memoria al archivo colectivo del Paseo.</p>
+            <span class="preview-card__link">Participar →</span>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECCIÓN 5 — DATOS CLAVE (contexto histórico)
+    ══════════════════════════════════════════ -->
+    <section class="scene-data" aria-labelledby="data-title">
+      <div class="scene-data__inner">
+        <h2 class="sr-only" id="data-title">Datos históricos clave</h2>
+        <div class="data-grid">
+          <div class="data-item">
+            <span class="data-item__num">1868</span>
+            <span class="data-item__label">Año de fundación del complejo penitenciario</span>
+          </div>
+          <div class="data-item">
+            <span class="data-item__num">14</span>
+            <span class="data-item__label">Espacios de memoria a recorrer</span>
+          </div>
+          <div class="data-item">
+            <span class="data-item__num">4</span>
+            <span class="data-item__label">Capas históricas superpuestas</span>
+          </div>
+          <div class="data-item">
+            <span class="data-item__num">1975</span>
+            <span class="data-item__label">Año de la histórica fuga colectiva</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════ FOOTER DESKTOP ══════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <p>© 2024 Capas de Memoria — Laboratorio Digital · Universidad Provincial de Córdoba</p>
+      <nav aria-label="Pie de página">
+        <a href="creditos.html">Créditos y metodología</a>
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer" aria-label="Licencia Creative Commons BY-NC 4.0 (abre en nueva pestaña)">CC BY-NC 4.0</a>
+      </nav>
+    </div>
+  </footer>
+
+      <!-- ══════════ MOBILE BOTTOM NAV ══════════ -->
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <a href="index.html" class="bnav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Inicio</span>
+    </a>
+    <a href="mapa.html" class="bnav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7l6-2 6 2 6-2v13l-6 2-6-2-6 2V7z"/></svg>
+      <span>Mapa</span>
+    </a>
+    <a href="timeline.html" class="bnav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Cronología</span>
+    </a>
+    <a href="archivo.html" class="bnav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <span>Archivo</span>
+    </a>
+    <a href="participacion.html" class="bnav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      <span>Participar</span>
+    </a>
+  </nav>
+
+  <script src="js/navigation.js"></script>
+  <script src="js/interactions.js"></script>
+</body>
+</html>

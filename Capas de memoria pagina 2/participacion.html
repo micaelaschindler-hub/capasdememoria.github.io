@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Participar — Sumá tu memoria al archivo colectivo del Paseo del Buen Pastor." />
+  <title>Participar — Capas de Memoria</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+
+<body class="page-participacion">
+
+  <!-- ══════════ DESKTOP TOP NAV ══════════ -->
+  <header class="topbar" role="banner">
+    <a href="index.html" class="brand" aria-label="Capas de Memoria — inicio">
+      <span class="brand__name">Capas de Memoria</span>
+      <span class="brand__sub">Paseo del Buen Pastor · Córdoba</span>
+    </a>
+    <nav class="topbar-nav" aria-label="Navegación principal desktop">
+      <a href="mapa.html"          class="topbar-link">Mapa</a>
+      <a href="timeline.html"      class="topbar-link">Cronología</a>
+      <a href="archivo.html"       class="topbar-link">Archivo</a>
+      <a href="participacion.html" class="topbar-link">Participar</a>
+      <a href="creditos.html"      class="topbar-link">Créditos</a>
+    </nav>
+  </header>
+
+  <!-- ══════════ TOPBAR ══════════ -->
+  <div class="page-topbar" role="banner">
+    <button class="topbar-menu" aria-label="Abrir menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <h1 class="topbar-title">Participar</h1>
+    <button class="topbar-action" id="btn-info-participar" aria-label="Información sobre la participación">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+    </button>
+  </div>
+
+  <main class="participacion-main" id="main-content">
+
+    <!-- ══════════ CABECERA ══════════ -->
+    <header class="participacion-header">
+      <h2 class="participacion-titulo">Tu capa del presente</h2>
+      <p class="participacion-subtitulo">
+        Sumá tu memoria y ayudanos a construir, entre todas y todos,<br>
+        la historia viva del Paseo del Buen Pastor.
+      </p>
+    </header>
+
+    <!-- ══════════════════════════════════════════
+         FORMULARIO POR PASOS NARRATIVOS
+         Paso 1: Reflexión personal (textarea)
+         Paso 2: Fotografía (opcional)
+         Paso 3: Localización en el Paseo
+         Paso 4: Consentimiento y envío
+    ══════════════════════════════════════════ -->
+    <div class="form-pasos" id="form-pasos" role="form" aria-label="Formulario de participación">
+
+      <!-- ══════ PASO 1: Reflexión personal ══════ -->
+      <section class="form-paso" id="paso-1" aria-labelledby="paso1-titulo">
+        <h2 class="form-paso__pregunta" id="paso1-titulo">
+          ¿Qué significa hoy este espacio para vos?
+        </h2>
+
+        <div class="form-campo">
+          <label class="form-label sr-only" for="reflexion-texto">
+            Contanos tu experiencia, recuerdos, sensaciones o lo que este lugar representa para vos
+          </label>
+          <textarea
+            class="form-textarea"
+            id="reflexion-texto"
+            name="reflexion"
+            placeholder="Contanos tu experiencia, recuerdos, sensaciones o lo que este lugar representa para vos..."
+            maxlength="500"
+            rows="6"
+            aria-describedby="reflexion-contador reflexion-hint"
+          ></textarea>
+          <div class="form-textarea-footer">
+            <span class="form-hint" id="reflexion-hint">
+              Tu reflexión será parte del archivo colectivo de memorias.
+            </span>
+            <span class="form-contador" id="reflexion-contador" aria-live="polite" aria-atomic="true">
+              0 / 500
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ PASO 2: Fotografía (opcional) ══════ -->
+      <section class="form-paso" id="paso-2" aria-labelledby="paso2-titulo">
+        <h2 class="form-paso__pregunta" id="paso2-titulo">
+          Subí una fotografía
+          <span class="form-paso__opcional" aria-label="campo opcional">(opcional)</span>
+        </h2>
+
+        <div class="form-campo">
+          <div
+            class="form-dropzone"
+            id="dropzone"
+            role="button"
+            tabindex="0"
+            aria-label="Área para subir fotografía. Hacer clic o arrastrar imagen aquí. Formatos aceptados: JPG y PNG. Tamaño máximo: 10 MB."
+            aria-describedby="dropzone-hint"
+          >
+            <div class="dropzone-contenido" id="dropzone-contenido">
+              <svg viewBox="0 0 48 48" fill="none" aria-hidden="true" width="48" height="48">
+                <rect x="4" y="10" width="40" height="32" rx="3" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="32" cy="20" r="4" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M4 34l12-10 8 8 8-5 12 7" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M24 4v20M18 10l6-6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <p class="dropzone-label">Arrastrá tu imagen aquí</p>
+              <p class="dropzone-o">o</p>
+              <button type="button" class="btn-subir-foto" id="btn-subir-foto" aria-label="Seleccionar fotografía desde el dispositivo">
+                Subir fotografía
+              </button>
+              <p class="dropzone-hint" id="dropzone-hint">Formatos permitidos: JPG, PNG — Máx. 10MB</p>
+            </div>
+
+            <!-- Preview de imagen (oculto hasta que se sube algo) -->
+            <div class="dropzone-preview" id="dropzone-preview" hidden aria-live="polite">
+              <img id="preview-img" src="" alt="Vista previa de la fotografía seleccionada" />
+              <button type="button" class="preview-remove" id="preview-remove" aria-label="Eliminar fotografía seleccionada">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+
+            <input
+              type="file"
+              id="foto-input"
+              name="foto"
+              accept="image/jpeg,image/png"
+              class="sr-only"
+              aria-hidden="true"
+            />
+          </div>
+
+          <!-- Descripción de la foto (aparece tras subir imagen) -->
+          <div class="foto-descripcion" id="foto-descripcion" hidden>
+            <label class="form-label" for="foto-desc-texto">
+              ¿Qué muestra esta fotografía? <span class="form-paso__opcional">(opcional)</span>
+            </label>
+            <input
+              type="text"
+              class="form-input"
+              id="foto-desc-texto"
+              name="foto_descripcion"
+              placeholder="Ej: El patio central, donde tomábamos sol los domingos."
+              maxlength="150"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ PASO 3: Localización ══════ -->
+      <section class="form-paso" id="paso-3" aria-labelledby="paso3-titulo">
+        <h2 class="form-paso__pregunta" id="paso3-titulo">
+          Seleccionar sector del Paseo
+        </h2>
+
+        <div class="form-campo">
+          <label class="form-label" for="sector-select">
+            Elegí el sector al que refiere tu memoria
+          </label>
+          <div class="form-select-wrap">
+           
+            <select
+              class="form-select"
+              id="sector-select"
+              name="sector"
+              aria-describedby="sector-hint"
+            >
+              <option value="" disabled selected>Elegí un sector</option>
+              <option value="fachada">01 — Fachada principal (Av. Hipólito Yrigoyen)</option>
+              <option value="pabellon-norte">02 — Pabellón norte</option>
+              <option value="capilla">03 — Capilla del Buen Pastor</option>
+              <option value="patio-celdas">04 — Patio de las Celdas</option>
+              <option value="taller-costura">05 — Taller de costura</option>
+              <option value="pabellon-politico">06 — Pabellón de detención política</option>
+              <option value="fuga-1975">07 — Paso de la fuga (1975)</option>
+              <option value="sala-control">08 — Sala de vigilancia</option>
+              <option value="patio-central">09 — Patio central actual</option>
+              <option value="escenario">10 — Plaza de eventos y escenario</option>
+              <option value="exposiciones">11 — Sala de exposiciones</option>
+              <option value="mural">12 — Mural de la memoria</option>
+              <option value="archivo-memoria">13 — Archivo participativo</option>
+              <option value="entrada">14 — Entrada principal al Paseo</option>
+              <option value="otro">Otro / No sé exactamente</option>
+            </select>
+            
+          </div>
+          <p class="form-hint" id="sector-hint">
+            Esto nos ayuda a vincular tu aporte con el lugar específico del Paseo.
+          </p>
+        </div>
+      </section>
+
+      <!-- ══════ PASO 4: Consentimiento y envío ══════ -->
+      <section class="form-paso" id="paso-4" aria-labelledby="paso4-titulo">
+
+        <!-- Bloque ético -->
+        <div class="etica-bloque" role="note" aria-labelledby="etica-titulo">
+          <div class="etica-bloque__header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" width="20" height="20">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <h2 class="etica-bloque__titulo" id="etica-titulo">Pauta ética y consentimiento</h2>
+          </div>
+          <p class="etica-bloque__texto">
+            Tu aporte podrá ser publicado en la plataforma como parte del archivo colectivo.
+            Nos comprometemos a cuidar tu identidad y tus derechos. No publicaremos datos personales
+            sin tu consentimiento explícito. Los aportes son moderados antes de su publicación.
+          </p>
+          <button
+            type="button"
+            class="etica-mas-info"
+            id="btn-etica-info"
+            aria-expanded="false"
+            aria-controls="etica-detalle"
+          >
+            Ver más información
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" width="14" height="14">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+
+          <div class="etica-detalle" id="etica-detalle" hidden>
+            <ul class="etica-lista" role="list">
+              <li>Tu nombre o datos personales no serán publicados sin tu autorización.</li>
+              <li>Las fotografías que subas serán moderadas antes de aparecer en el archivo.</li>
+              <li>Podés solicitar la eliminación de tu aporte en cualquier momento.</li>
+              <li>El proyecto es académico, sin fines comerciales.</li>
+              <li>Los aportes que sean publicados quedarán bajo licencia <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a>, salvo acuerdo diferente.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Checkbox de aceptación -->
+        <div class="form-check">
+          <input
+            type="checkbox"
+            id="consent-check"
+            name="consentimiento"
+            class="form-checkbox"
+            required
+            aria-required="true"
+            aria-describedby="consent-desc"
+          />
+          <label class="form-check-label" for="consent-check" id="consent-desc">
+            Acepto compartir este aporte y las
+            <a href="creditos.html#licencias">condiciones de uso</a>
+            del proyecto Capas de Memoria.
+          </label>
+        </div>
+
+        <!-- Botón de envío -->
+        <button
+          type="button"
+          class="btn-enviar-aporte"
+          id="btn-enviar"
+          aria-label="Enviar mi aporte al archivo colectivo"
+          aria-describedby="enviar-hint"
+        >
+          Enviar aporte
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+        <p class="form-hint" id="enviar-hint">
+          Tu aporte será revisado por el equipo antes de publicarse.
+        </p>
+
+      </section>
+
+    </div><!-- /form-pasos -->
+
+    <!-- ══════════════════════════════════════════
+         CONFIRMACIÓN (oculta hasta envío)
+    ══════════════════════════════════════════ -->
+    <div
+      class="form-confirmacion"
+      id="form-confirmacion"
+      role="alert"
+      aria-live="assertive"
+      hidden
+    >
+      <div class="confirmacion-check" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="24" cy="24" r="22" stroke-dasharray="138" class="confirmacion-circulo"/>
+          <polyline points="14 24 21 31 34 17" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="confirmacion-titulo">¡Gracias por tu aporte!</h2>
+      <p class="confirmacion-texto">
+        Tu aporte será revisado antes de publicarse.
+        Vas a recibir una notificación cuando sea parte del archivo colectivo.
+      </p>
+      <a href="archivo.html" class="btn-ver-archivo">
+        Ver el archivo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+
+  </main>
+
+      <!-- ══════════ MOBILE BOTTOM NAV ══════════ -->
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <a href="index.html" class="bnav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Inicio</span>
+    </a>
+    <a href="mapa.html" class="bnav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7l6-2 6 2 6-2v13l-6 2-6-2-6 2V7z"/></svg>
+      <span>Mapa</span>
+    </a>
+    <a href="timeline.html" class="bnav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Cronología</span>
+    </a>
+    <a href="archivo.html" class="bnav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <span>Archivo</span>
+    </a>
+    <a href="participacion.html" class="bnav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      <span>Participar</span>
+    </a>
+  </nav>
+
+  <script src="js/navigation.js"></script>
+  <script src="js/form.js"></script>
+</body>
+</html>

@@ -1,0 +1,419 @@
+/* =========================================================
+   CAPAS DE MEMORIA — animations.css
+   Scrollytelling, transiciones, fade-ins, reduced-motion.
+   ========================================================= */
+
+/* ──────────────────────────────────────────────────────────
+   1. FADE IN DE PÁGINA
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    animation: pageFade 0.35s ease both;
+  }
+
+  @keyframes pageFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   2. SCROLL-REVEAL — elementos que aparecen al hacer scroll
+   Intersection Observer en interactions.js añade .is-visible
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Variantes de dirección */
+  .reveal--left {
+    transform: translateX(-18px);
+  }
+  .reveal--left.is-visible {
+    transform: none;
+  }
+
+  .reveal--scale {
+    transform: scale(0.96);
+  }
+  .reveal--scale.is-visible {
+    transform: none;
+  }
+
+  /* Delays para elementos en grilla */
+  .reveal-delay-1 { transition-delay: 0.05s; }
+  .reveal-delay-2 { transition-delay: 0.10s; }
+  .reveal-delay-3 { transition-delay: 0.15s; }
+  .reveal-delay-4 { transition-delay: 0.20s; }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   3. INDEX — Scrollytelling sticky
+   Las layer-cards se deplazan al scrollear (JS en interactions.js)
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Transición suave cuando JS mueve las capas */
+  .layer-card {
+    transition:
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.5s ease;
+  }
+
+  /* El título principal aparece con un efecto de escala */
+  .main-title__text {
+    animation: titlePunch 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  }
+
+  @keyframes titlePunch {
+    from {
+      opacity: 0;
+      transform: scale(0.92) translateY(12px);
+      letter-spacing: 0.02em;
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Flecha de scroll pulsante */
+  .scroll-arrow svg {
+    animation: scrollBounce 2s ease infinite;
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50%       { transform: translateY(5px); opacity: 1; }
+  }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   4. MAPA — nodos y popup
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Nodo: aparición escalonada al cargar */
+  .mapa-nodo {
+    animation: nodoAparecer 0.5s ease both;
+  }
+
+  /* Delay escalonado por nodo via nth-child */
+  .mapa-nodo:nth-child(1)  { animation-delay: 0.05s; }
+  .mapa-nodo:nth-child(2)  { animation-delay: 0.10s; }
+  .mapa-nodo:nth-child(3)  { animation-delay: 0.15s; }
+  .mapa-nodo:nth-child(4)  { animation-delay: 0.20s; }
+  .mapa-nodo:nth-child(5)  { animation-delay: 0.25s; }
+  .mapa-nodo:nth-child(6)  { animation-delay: 0.30s; }
+  .mapa-nodo:nth-child(7)  { animation-delay: 0.35s; }
+  .mapa-nodo:nth-child(8)  { animation-delay: 0.40s; }
+  .mapa-nodo:nth-child(9)  { animation-delay: 0.45s; }
+  .mapa-nodo:nth-child(10) { animation-delay: 0.50s; }
+  .mapa-nodo:nth-child(11) { animation-delay: 0.55s; }
+  .mapa-nodo:nth-child(12) { animation-delay: 0.60s; }
+  .mapa-nodo:nth-child(13) { animation-delay: 0.65s; }
+  .mapa-nodo:nth-child(14) { animation-delay: 0.70s; }
+
+  @keyframes nodoAparecer {
+    from { opacity: 0; transform: scale(0.6); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Nodo activo: pulso */
+  .mapa-nodo--active .nodo-aura--active,
+  .mapa-nodo--destacado .nodo-aura {
+    animation: nodoPulso 2.5s ease-in-out infinite;
+  }
+
+  @keyframes nodoPulso {
+    0%, 100% { opacity: 0.15; r: 20; }
+    50%       { opacity: 0.35; r: 26; }
+  }
+
+  /* Pin de usuario: pulso */
+  .user-pin__pulse {
+    animation: pinPulso 2s ease-in-out infinite;
+  }
+
+  @keyframes pinPulso {
+    0%, 100% { r: 12; opacity: 0.25; }
+    50%       { r: 20; opacity: 0.05; }
+  }
+
+  /* Popup: entrada desde abajo */
+  .nodo-popup:not([hidden]) {
+    animation: popupEntrada 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes popupEntrada {
+    from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   5. NODO — Comparador antes/después
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Hint táctil desaparece después de 3 segundos */
+  .comp-hint {
+    animation: hintFade 3s ease 1.5s forwards;
+  }
+
+  @keyframes hintFade {
+    0%   { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { opacity: 0; pointer-events: none; }
+  }
+
+  /* Divisor: shimmer al pasar por encima */
+  .comp-divisor:hover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 0.5s ease;
+  }
+
+  @keyframes shimmer {
+    from { opacity: 0; }
+    50%  { opacity: 1; }
+    to   { opacity: 0; }
+  }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   6. AUDIO PLAYER — waveform y play
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Botón play: aparece con escala */
+  .audio-play {
+    transition: background var(--t-fast), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .audio-play:active {
+    transform: scale(0.92);
+  }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   7. TIMELINE — items aparecen al hacer scroll
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  .timeline-item {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      opacity 0.45s ease,
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .timeline-item.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* El primero es visible de inmediato */
+  .timeline-item:first-child {
+    opacity: 1;
+    transform: none;
+  }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   8. ARCHIVO — grid items aparecen
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  .archivo-item {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .archivo-item.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .archivo-item:nth-child(1) { transition-delay: 0.05s; }
+  .archivo-item:nth-child(2) { transition-delay: 0.10s; }
+  .archivo-item:nth-child(3) { transition-delay: 0.15s; }
+  .archivo-item:nth-child(4) { transition-delay: 0.20s; }
+  .archivo-item:nth-child(5) { transition-delay: 0.25s; }
+  .archivo-item:nth-child(6) { transition-delay: 0.30s; }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   9. FORMULARIO — confirmación y checkbox
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Confirmación: entrada con escala */
+  .form-confirmacion:not([hidden]) {
+    animation: confirmEntrada 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes confirmEntrada {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Círculo SVG de la confirmación */
+  .confirmacion-circulo {
+    stroke-dashoffset: 138;
+    animation: circuloDraw 0.6s ease 0.2s forwards;
+    stroke: var(--c-ok);
+  }
+
+  @keyframes circuloDraw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* Error en form: shake */
+  .form-campo.has-error .form-textarea,
+  .form-campo.has-error .form-select,
+  .form-campo.has-error .form-input {
+    animation: shakeError 0.35s ease;
+    border-color: var(--c-error);
+  }
+
+  @keyframes shakeError {
+    0%, 100% { transform: none; }
+    20%       { transform: translateX(-5px); }
+    40%       { transform: translateX(5px); }
+    60%       { transform: translateX(-3px); }
+    80%       { transform: translateX(3px); }
+  }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   10. LIGHTBOX — entrada/salida
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  .lightbox:not([hidden]) {
+    animation: lightboxEntrada 0.3s ease;
+  }
+
+  @keyframes lightboxEntrada {
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .lightbox-overlay:not([hidden]) {
+    animation: overlayEntrada 0.25s ease;
+  }
+
+  @keyframes overlayEntrada {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   11. BARRA DE PROGRESO
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  .progreso-seg {
+    transition: background 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Flash cuando aumenta el progreso */
+  .progreso-seg.just-done {
+    animation: segFlash 0.4s ease;
+  }
+
+  @keyframes segFlash {
+    0%   { filter: brightness(1); }
+    40%  { filter: brightness(1.6); }
+    100% { filter: brightness(1); }
+  }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   12. PREVIEW CARDS DE INDEX
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  .preview-card {
+    transition:
+      box-shadow var(--t-fast),
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .capa-pill {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .capa-pill:hover {
+    transform: translateX(3px);
+    box-shadow: var(--shadow-raised);
+  }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   13. NODO POPUP en MAPA — dots pulsantes
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Dot del timeline activo */
+  .timeline-item__dot--active {
+    box-shadow: 0 0 0 0 rgba(26,25,23,0.4);
+    animation: dotPulso 2s ease infinite;
+  }
+
+  @keyframes dotPulso {
+    0%   { box-shadow: 0 0 0 0 rgba(26,25,23,0.4); }
+    70%  { box-shadow: 0 0 0 8px rgba(26,25,23,0); }
+    100% { box-shadow: 0 0 0 0 rgba(26,25,23,0); }
+  }
+
+}
+
+/* ──────────────────────────────────────────────────────────
+   14. REDUCED-MOTION — override global obligatorio
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+    scroll-behavior:           auto   !important;
+  }
+
+  /* Los elementos que estaban esperando reveal: hacerlos visibles */
+  .reveal,
+  .timeline-item,
+  .archivo-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+}

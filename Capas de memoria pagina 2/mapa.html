@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Mapa interactivo de memorias — Paseo del Buen Pastor, Córdoba"/>
+<title>Mapa de Memoria — Capas de Memoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<link rel="stylesheet" href="css/mapa.css" />
+</head>
+
+<body>
+
+<!-- ═══════════ TOPBAR ═══════════ -->
+<header class="topbar" role="banner">
+  <a href="index.html" class="brand" aria-label="Capas de Memoria — inicio">
+    <span class="brand__name">Capas de Memoria</span>
+    <span class="brand__sub">Paseo del Buen Pastor · Córdoba</span>
+  </a>
+  <nav class="topbar-nav" aria-label="Navegación principal">
+    <a href="mapa.html"          class="topbar-link is-active" aria-current="page">Mapa</a>
+    <a href="timeline.html"      class="topbar-link">Cronología</a>
+    <a href="archivo.html"       class="topbar-link">Archivo</a>
+    <a href="participacion.html" class="topbar-link">Participar</a>
+    <a href="creditos.html"      class="topbar-link">Créditos</a>
+  </nav>
+</header>
+
+<!-- ═══════════ PROGRESO ═══════════ -->
+<div class="progreso-pill" role="status" aria-live="polite" aria-label="Progreso del recorrido">
+  <strong id="prog-count">0</strong>
+  <span>de 9 nodos visitados</span>
+  <div class="progreso-segs" id="prog-segs" aria-hidden="true"></div>
+</div>
+
+<!-- ═══════════ MAPA ═══════════ -->
+<div id="mapa-root" role="application" aria-label="Mapa interactivo del Paseo del Buen Pastor. Usar scroll o pellizco para zoom. Arrastrar para desplazar.">
+
+  <div id="mapa-stage">
+
+    <!-- Imagen aérea real como fondo -->
+    <img
+      id="mapa-img"
+      src="img/aerial_hero.jpg"
+      alt="Vista aérea del Paseo del Buen Pastor, Córdoba — imagen base del mapa interactivo"
+      draggable="false"
+    />
+
+    <!-- ══════════════════════════════════
+         HOTSPOTS — posicionados en % sobre la imagen
+         Calibrados sobre 2.jpg (1920×1080)
+    ══════════════════════════════════ -->
+
+    <!-- 1: Sala de exposiciones -->
+    <div class="hotspot" data-id="01" data-capa="4"
+         style="left:56.2%;top:36.3%"
+         role="button" tabindex="0"
+         aria-label="Nodo 1: Fachada del Museo — Capa I">
+      <div class="hotspot__pulse" aria-hidden="true"></div>
+      <div class="hotspot__ring"  aria-hidden="true"></div>
+      <div class="hotspot__dot"   aria-hidden="true"></div>
+      <div class="hotspot__label" aria-hidden="true">Sala de exposiciones</div>
+    </div>
+
+    <!-- 2: Entrada Capilla -->
+    <div class="hotspot" data-id="02" data-capa="1"
+         style="left:46.8%;top:37.2%"
+         role="button" tabindex="0"
+         aria-label="Nodo 2: Entrada a la Capilla — Capa I">
+      <div class="hotspot__pulse" aria-hidden="true"></div>
+      <div class="hotspot__ring"  aria-hidden="true"></div>
+      <div class="hotspot__dot"   aria-hidden="true"></div>
+      <div class="hotspot__label" aria-hidden="true">Ingreso Capilla</div>
+    </div>
+
+   <!-- patio interno 2 -->
+    <div class="hotspot" data-id="03" data-capa="3"
+         style="left:41.2%;top:45%"
+         role="button" tabindex="0"
+         aria-label="Nodo 3: Esquina Yrigoyen y Obispo Oro — Capa II">
+      <div class="hotspot__pulse" aria-hidden="true"></div>
+      <div class="hotspot__ring"  aria-hidden="true"></div>
+      <div class="hotspot__dot"   aria-hidden="true"></div>
+      <div class="hotspot__label" aria-hidden="true">Patios internos</div>
+    </div>
+
+    <!-- 4: Baldosas históricas -->
+    <div class="hotspot" data-id="04" data-capa="2"
+         style="left:35.4%;top:42.1%"
+         role="button" tabindex="0"
+         aria-label="Nodo 4: Baldosas históricas — Capa II">
+      <div class="hotspot__pulse" aria-hidden="true"></div>
+      <div class="hotspot__ring"  aria-hidden="true"></div>
+      <div class="hotspot__dot"   aria-hidden="true"></div>
+      <div class="hotspot__label" aria-hidden="true">Baldosas</div>
+    </div>
+
+    <!-- 5: Reja de la fuga -->
+    <div class="hotspot" data-id="05" data-capa="2"
+         style="left:33%;top:48.3%"
+         role="button" tabindex="0"
+         aria-label="Nodo 5: Reja de la fuga — Capa II">
+      <div class="hotspot__pulse" aria-hidden="true"></div>
+      <div class="hotspot__ring"  aria-hidden="true"></div>
+      <div class="hotspot__dot"   aria-hidden="true"></div>
+      <div class="hotspot__label" aria-hidden="true">Reja de la fuga</div>
+    </div>
+
+    <!-- 6: Fachada frente Capuchinos -->
+    <div class="hotspot" data-id="06" data-capa="3"
+         style="left:41.8%;top:54.6%"
+         role="button" tabindex="0"
+         aria-label="Nodo 6: Fachada frente a Los Capuchinos — Capa III">
+      <div class="hotspot__pulse" aria-hidden="true"></div>
+      <div class="hotspot__ring"  aria-hidden="true"></div>
+      <div class="hotspot__dot"   aria-hidden="true"></div>
+      <div class="hotspot__label" aria-hidden="true">Homenaje a desaparecidas</div>
+    </div>
+
+    <!-- 7: Patio interno -->
+    <div class="hotspot" data-id="07" data-capa="3"
+         style="left:47%;top:48.2%"
+         role="button" tabindex="0"
+         aria-label="Nodo 7: Patio interno — Capa II">
+      <div class="hotspot__pulse" aria-hidden="true"></div>
+      <div class="hotspot__ring"  aria-hidden="true"></div>
+      <div class="hotspot__dot"   aria-hidden="true"></div>
+      <div class="hotspot__label" aria-hidden="true">Fachadas Internas</div>
+    </div>
+
+    <!-- 8: Fuente central -->
+    <div class="hotspot" data-id="08" data-capa="1"
+         style="left:56.2%;top:46.1%"
+         role="button" tabindex="0"
+         aria-label="Nodo 8: Fuente central — Capa IV">
+      <div class="hotspot__pulse" aria-hidden="true"></div>
+      <div class="hotspot__ring"  aria-hidden="true"></div>
+      <div class="hotspot__dot"   aria-hidden="true"></div>
+      <div class="hotspot__label" aria-hidden="true">Fuente</div>
+    </div>
+
+    <!-- 9: Esq. San Lorenzo / Buenos Aires -->
+    <div class="hotspot" data-id="09" data-capa="4"
+         style="left:54.2%;top:58.3%"
+         role="button" tabindex="0"
+         aria-label="Nodo 9: Esquina San Lorenzo y Buenos Aires — Capa IV">
+      <div class="hotspot__pulse" aria-hidden="true"></div>
+      <div class="hotspot__ring"  aria-hidden="true"></div>
+      <div class="hotspot__dot"   aria-hidden="true"></div>
+      <div class="hotspot__label" aria-hidden="true">Esq. San Lorenzo / Bs. As.</div>
+    </div>
+
+  </div><!-- /mapa-stage -->
+</div><!-- /mapa-root -->
+
+<!-- ═══════════ OVERLAY DE PANEL ═══════════ -->
+<div class="panel-overlay" id="panel-overlay" aria-hidden="true"></div>
+
+<!-- ═══════════ PANEL NARRATIVO ═══════════ -->
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Información del nodo" aria-live="polite">
+
+  <div class="panel-header">
+    <button class="panel-close" id="panel-close" aria-label="Cerrar panel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <div class="panel-capa-badge" id="panel-badge">Capa I</div>
+    <h2 class="panel-titulo" id="panel-titulo">Nombre del nodo</h2>
+  </div>
+
+  <div class="panel-img-wrap" id="panel-img-wrap">
+    <img id="panel-img" src="" alt="" style="display: none;" />
+    <div class="panel-img-placeholder" id="panel-img-placeholder">
+      <svg viewBox="0 0 48 36" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="46" height="34" rx="2" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="16" cy="13" r="4" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M1 26l11-9 8 8 8-6 12 9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      <span>Imagen documental</span>
+      <span style="font-size:0.55rem;color:rgba(242,237,228,0.15)">[Insertar fotografía histórica del espacio]</span>
+    </div>
+    <div class="panel-img-label" id="panel-img-label"></div>
+  </div>
+
+  <div class="panel-body" id="panel-body">
+
+    <p class="panel-fecha" id="panel-fecha">Período histórico</p>
+
+    <p class="panel-texto" id="panel-texto">
+      Descripción del nodo narrativo.
+    </p>
+
+    <div class="panel-sep"><span>◆</span></div>
+
+    <div class="panel-testimonio" id="panel-testimonio">
+      <div class="panel-testimonio__label">Testimonio</div>
+      <p class="panel-testimonio__cita" id="panel-cita">
+        Fragmento de testimonio de la persona que habitó este espacio.
+      </p>
+    </div>
+
+  </div>
+
+  <div style="padding:0 1.25rem 0.75rem;flex-shrink:0">
+    <a class="panel-cta" id="panel-cta" href="nodo.html">
+      Explorar este nodo
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"/>
+        <polyline points="12 5 19 12 12 19"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="panel-footer">
+    <button class="panel-nav-btn" id="panel-prev" aria-label="Nodo anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      Anterior
+    </button>
+    <button class="panel-nav-btn" id="panel-next" aria-label="Nodo siguiente">
+      Siguiente
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+  </div>
+
+</aside>
+
+<!-- ═══════════ CONTROLES DE ZOOM ═══════════ -->
+<div class="mapa-controles" aria-label="Controles del mapa">
+  <button class="ctrl-btn" id="ctrl-zoom-in" aria-label="Acercar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      <line x1="11" y1="8" x2="11" y2="14"/>
+      <line x1="8" y1="11" x2="14" y2="11"/>
+    </svg>
+  </button>
+  <button class="ctrl-btn" id="ctrl-zoom-out" aria-label="Alejar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      <line x1="8" y1="11" x2="14" y2="11"/>
+    </svg>
+  </button>
+  <div class="ctrl-sep"></div>
+  <button class="ctrl-btn" id="ctrl-reset" aria-label="Restablecer vista">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+      <path d="M3 3v5h5"/>
+    </svg>
+  </button>
+</div>
+
+<div class="zoom-indicator" id="zoom-indicator" aria-hidden="true">100%</div>
+
+<!-- ═══════════ FILTROS ═══════════ -->
+<div class="filtros" role="group" aria-label="Filtrar nodos por capa histórica">
+  <button class="filtro-btn is-active" data-capa="all" aria-pressed="true">Todas</button>
+  <div class="filtro-sep" aria-hidden="true"></div>
+  <button class="filtro-btn" data-capa="1" aria-pressed="false">
+    <span class="filtro-dot filtro-dot--1" aria-hidden="true"></span> Capa I — Orígenes
+  </button>
+  <button class="filtro-btn" data-capa="2" aria-pressed="false">
+    <span class="filtro-dot filtro-dot--2" aria-hidden="true"></span> Capa II — Resistencia
+  </button>
+  <button class="filtro-btn" data-capa="3" aria-pressed="false">
+    <span class="filtro-dot filtro-dot--3" aria-hidden="true"></span> Capa III — Reconversión
+  </button>
+  <button class="filtro-btn" data-capa="4" aria-pressed="false">
+    <span class="filtro-dot filtro-dot--4" aria-hidden="true"></span> Capa IV — Presente
+  </button>
+</div>
+
+<!-- ═══════════ BOTTOM NAV ═══════════ -->
+<nav class="bottom-nav" aria-label="Navegación principal">
+  <a href="index.html" class="bnav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Inicio</span>
+  </a>
+  <a href="mapa.html" class="bnav-item is-active" aria-current="page">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7l6-2 6 2 6-2v13l-6 2-6-2-6 2V7z"/></svg>
+    <span>Mapa</span>
+  </a>
+  <a href="timeline.html" class="bnav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span>Cronología</span>
+  </a>
+  <a href="archivo.html" class="bnav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    <span>Archivo</span>
+  </a>
+  <a href="participacion.html" class="bnav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+    <span>Participar</span>
+  </a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT — TODO INLINE
+═══════════════════════════════════════════════════ -->
+<script src="js/map.js"></script>
+
+</body>
+</html>
