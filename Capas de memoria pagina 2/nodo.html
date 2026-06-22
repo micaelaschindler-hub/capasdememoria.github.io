@@ -1,6 +1,5 @@
-
-DOCTYPE html>
-<html lang="es"><!
+<!DOCTYPE html>
+<html lang="es">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -47,7 +46,7 @@ DOCTYPE html>
 /* ═══════════════════════════════════════════════════
    RESET
 ═══════════════════════════════════════════════════ */
-*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+,::before,*::after { box-sizing:border-box; margin:0; padding:0; }
 html { font-size:100%; scroll-behavior:smooth; }
 body {
   background: var(--c-bg);
@@ -1118,9 +1117,9 @@ const TOTAL_NODOS = 9;   // ← total de nodos del proyecto
   const wrap   = document.getElementById('progreso-segs');
   if(!wrap) return;
 
-  if(strong) strong.textContent = `${NODO_ACTUAL} de ${TOTAL_NODOS} nodos visitados`;
+  if(strong) strong.textContent = ⁠ ${NODO_ACTUAL} de ${TOTAL_NODOS} nodos visitados ⁠;
   wrap.setAttribute('aria-valuenow', Math.round(NODO_ACTUAL / TOTAL_NODOS * 100));
-  wrap.setAttribute('aria-label', `Progreso: ${NODO_ACTUAL} de ${TOTAL_NODOS} nodos visitados`);
+  wrap.setAttribute('aria-label', ⁠ Progreso: ${NODO_ACTUAL} de ${TOTAL_NODOS} nodos visitados ⁠);
 
   for(let i = 1; i <= TOTAL_NODOS; i++){
     const seg = document.createElement('div');
@@ -1152,7 +1151,7 @@ function initAudio(n){
   const subBox  = document.getElementById('subtitulos-' + n);
   if(!audio || !playBtn) return;
 
-  function fmt(s){ return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(Math.floor(s%60)).padStart(2,'0')}`; }
+  function fmt(s){ return ⁠ ${String(Math.floor(s/60)).padStart(2,'0')}:${String(Math.floor(s%60)).padStart(2,'0')} ⁠; }
 
   audio.addEventListener('loadedmetadata', () => {
     if(durEl) durEl.textContent = fmt(audio.duration);
